@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Schedule Recoverability</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      background-color: #333;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .schedule-container {
+      margin: 20px;
+      padding: 10px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      background-color: #333;
+      color: white;
+    }
+
+    .schedule-list {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .schedule-item {
+      background-color: #f9f9f9;
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    section.intro {
+      margin: 20px;
+      padding: 20px;
+      background-color: lightblue;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .intro h2 {
+      color: #333;
+    }
+
+    .intro ul {
+      line-height: 1.6;
+    }
+
+    .intro b {
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Schedule and Recoverability Status</h1>
+  </header>
+
+  <h1>Introduction</h1>
+  <center><img src="https://th.bing.com/th/id/OIP.vwACoyBKCbVEfzf1uGAC_wHaEj?w=285&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7" width="250" height="150"></center>
+
+  <section class="intro">
+    <h2>Introduction to Recoverability in DBMS and Transaction Scheduling</h2>
+    <p>In <strong>Database Management Systems (DBMS)</strong>, managing transactions and ensuring the <strong>recoverability</strong> of the system in the event of failures is one of the core concerns for maintaining data integrity and consistency. As databases are used for critical applications, ensuring that the database can recover from crashes, power failures, or other unexpected events is crucial. This is where the concepts of <strong>transaction scheduling</strong> and <strong>recoverability</strong> come into play.</p>
+
+    <h3>What is a Transaction?</h3>
+    <p>A transaction in a DBMS is a logical unit of work that consists of a sequence of operations (like reading, writing, or updating data) performed on the database. A transaction has four primary properties known as <strong>ACID</strong> properties:</p>
+    <ul>
+      <li><strong>Atomicity</strong>: A transaction is either fully completed or fully rolled back. It cannot be partially done.</li>
+      <li><strong>Consistency</strong>: A transaction brings the database from one consistent state to another.</li>
+      <li><strong>Isolation</strong>: Transactions are isolated from each other, meaning the operations of one transaction do not interfere with those of another.</li>
+      <li><strong>Durability</strong>: Once a transaction is committed, its changes are permanent, even in the event of a system crash.</li>
+    </ul>
+
+    <h3>What is Recoverability?</h3>
+    <p><strong>Recoverability</strong> in a DBMS refers to the ability of the system to restore its state to a <strong>consistent</strong> point after a failure, such as a crash, ensuring that data is not lost or corrupted. The DBMS uses various mechanisms, like logs and undo/redo operations, to recover the system.</p>
+    <p>A key concept of recoverability is making sure that if a failure occurs during a transaction, the system can correctly roll back any changes made by transactions that have not yet been committed, or redo the changes of committed transactions.</p>
+
+    <h3>Transaction Scheduling and Recoverability</h3>
+    <p>A schedule in a DBMS is an ordering of operations from multiple transactions. In a concurrent environment, transactions are interleaved, meaning their operations (like reads and writes) are executed in a specific order that may not be sequential. However, this interleaving must ensure that the database remains <strong>consistent</strong> and can be recovered in case of a failure.</p>
+    <p><strong>Recoverable schedules</strong> are those where the interleaved operations do not lead to inconsistent states, and the system can recover properly in case of failures. The scheduling of transactions affects both the <strong>consistency</strong> of the database and the <strong>recovery</strong> process.</p>
+
+    <h3>Types of Recoverable Schedules</h3>
+    <ul>
+      <li><strong>Strict Schedule</strong>: A schedule where no transaction’s write is visible to others until it is committed. This is the safest in terms of recoverability and avoids dirty reads.</li>
+      <li><strong>Cascadeless Schedule</strong>: A schedule where a transaction can only read data that has been committed by another transaction. This prevents cascading rollbacks, making recovery more efficient.</li>
+      <li><strong>Recoverable Schedule</strong>: A schedule where a transaction that reads data from another transaction must commit only after the transaction it read from has committed.</li>
+      <li><strong>Non-Recoverable Schedule</strong>: A schedule where a transaction can commit even if the transaction it read from has not committed, which can cause problems during recovery.</li>
+    </ul>
+
+    <h3>Why Recoverability Matters</h3>
+    <p>In systems with high concurrency or long transactions, ensuring that the system is <strong>recoverable</strong> after failures is essential. Without proper recoverability, a crash could leave the database in an inconsistent state, losing data or violating business rules.</p>
+    <p>For example, consider a banking application where two transactions are trying to transfer money between accounts. If one of the transactions is interrupted due to a crash, recoverability mechanisms ensure that the system can restore the database to a consistent state, preventing issues like <strong>double withdrawals</strong> or <strong>lost transactions</strong>.</p>
+  </section>
+
+  <section class="schedule-container">
+    <h2>Upcoming Schedule:</h2>
+    <ul class="schedule-list" id="schedule-list">
+      <!-- The schedule will be populated here by JavaScript -->
+    </ul>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Schedule Recoverability System</p>
+  </footer>
+
+  <script>
+    // Define a sample schedule (this can be dynamically fetched from a server or database)
+    const schedule = [
+      { date: 'April 10, 2025', time: '10:00 AM', task: 'System Backup' },
+      { date: 'April 11, 2025', time: '2:00 PM', task: 'Database Maintenance' },
+      { date: 'April 12, 2025', time: '9:00 AM', task: 'Server Update' }
+    ];
+
+    // Function to render the schedule dynamically
+    function renderSchedule() {
+      const scheduleList = document.getElementById('schedule-list');
+      schedule.forEach(item => {
+        const li = document.createElement('li');
+        li.classList.add('schedule-item');
+        li.innerHTML = `<strong>${item.date}</strong> at ${item.time}: ${item.task}`;
+        scheduleList.appendChild(li);
+      });
+    }
+
+    // Call the function to render the schedule when the page loads
+    renderSchedule();
+  </script>
+
+</body>
+</html>
